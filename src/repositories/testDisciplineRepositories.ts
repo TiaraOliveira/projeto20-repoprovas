@@ -1,30 +1,46 @@
 import { number } from 'joi';
 import { prisma } from '../postgress';
 
-export async function gettestdiscipline(disciplineId:number) {
-     return prisma.teachersDisciplines.findMany({
-        where:{
-            disciplineId:disciplineId
-        },include:{
+export async function gettestdiscipline() {
+     return prisma.terms.findMany({
+        orderBy:{number:'asc'},
+        select:{
+            number: true,
             discipline:{
                 select:{
                     name:true,
-                    terms:{
+                    teachersDiscipline:{
+                    
                         select:{
-                            number: true,
+                            
+                            test:{
+                                select:{
+                                    id:true,
+                                    name:true,
+                                    pdfUrl: true,
+                                    teachersDiscipline:{
+                                        select:{
+                                            teacher:{
+                                                select:{
+                                                    name: true
+                                                }
+                                               
+                                            }
+                                        }
+                                    },
+                                    category:{
+                                        select:{
+                                            name: true,
+                                        }
+                                    }
+                                    
+                                }
+                            }
                         }
-
                     }
                 }
-            },
-            test:{
-                select:{
-                    id:true,
-                    name:true,
-                    pdfUrl:true
-                }
-            },
-            teacher:true
+               
+            }
         }
     })
 }

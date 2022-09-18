@@ -6,6 +6,6 @@ import { viewTestByDiscipline } from "../controllers/testDisciplineController";
 
 const testdisciplineRouter = Router();
 
-testdisciplineRouter.get('/discipline/:id/tests', validateUser, viewTestByDiscipline);
+testdisciplineRouter.get('/discipline', validateUser, viewTestByDiscipline);
 
 export default testdisciplineRouter;

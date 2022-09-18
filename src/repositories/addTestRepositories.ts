@@ -29,7 +29,6 @@ export async function existsTeacher(teacher: string) {
       });
     
 }
-
 export async function existsdiscipline(discipline: string) {
     return await prisma.disciplines.findUnique({
         where: {
@@ -38,16 +37,6 @@ export async function existsdiscipline(discipline: string) {
         
       });
     
-}
-
-export async function existsdisciplinebyId(disciplineId: number) {
-  return await prisma.disciplines.findUnique({
-      where: {
-        disciplineId: disciplineId
-      },
-      
-    });
-  
 }
 
 export async function existsteacherdisciplinebyId(teacher: number, discipline: number) {
