@@ -23,20 +23,55 @@ describe('Test addTest Routes', () => {
       password: '12345678910',
       
     }
+
     const logusser = await supertest(app).post(`/signin`).send(login);
     const token = logusser.text
-const test = {
-  name: faker.lorem.words(4),
-  pdfUrl: faker.internet.avatar() + '.pdf',
-  category: 'Projeto'  ,
-  discipline: 'JavaScript',
-  teacher: 'Diego Pinho'
-}
-    const result = await supertest(app).get("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: faker.lorem.words(4),
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"HTML e CSS"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
     
     expect(result.status).toBe(201);
   
   });
+
+  it('Deve retornar 401 quando enviado token invalido', async () => {
+    const token = 'eyJobGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0aWFyYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMSRaMWZwU1pic2JvWEFydC5tQkNXbnN1Y2NRUkdYNWlkNlNXek1BazdyY08vcWJ1dEhYY3E2TyIsImlhdCI6MTY2MzUxMjkzNiwiZXhwIjoxNjYzNTk5MzM2fQ.DKFkSZiAfz_7y6ZDjPikgbPu2uAxXk2487WTgTlNAH4'
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: faker.lorem.words(4),
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"HTML e CSS"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(401);
+  
+  });
+
+  it('Deve retornar 401 quando enviado token invalido', async () => {
+    const token = ''
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: faker.lorem.words(4),
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"HTML e CSS"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(400);
+  
+  });
+
 
   
 });
