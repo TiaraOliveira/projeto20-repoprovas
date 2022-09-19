@@ -7,7 +7,7 @@ beforeEach(async () => {
   await prisma.$executeRaw`TRUNCATE TABLE users`;
 });
 
-describe('Test addTest Routes', () => {
+describe('Test addTest Routes',  () => {
  
 
   it('Deve adicionar uma ṕrova e retornar status 201 e o objeto', async () => {
@@ -16,6 +16,7 @@ describe('Test addTest Routes', () => {
       password: '12345678910',
       password_confirmation: '12345678910'
     }
+
     await supertest(app).post(`/signup`).send(body);
 
     const login =  {
@@ -25,7 +26,7 @@ describe('Test addTest Routes', () => {
     }
 
     const logusser = await supertest(app).post(`/signin`).send(login);
-    const token = logusser.text
+    const token = logusser.body.token
    
       const test = {
         name: faker.lorem.words(4),
@@ -72,8 +73,99 @@ describe('Test addTest Routes', () => {
   
   });
 
+  it('Deve retornar 400 caso professor não exista', async () => {
+    const body =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      password_confirmation: '12345678910'
+    }
 
+    await supertest(app).post(`/signup`).send(body);
+
+    const login =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      
+    }
+
+    const logusser = await supertest(app).post(`/signin`).send(login);
+    const token = logusser.body.token
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: faker.lorem.words(4),
+        category:"Projeto",
+        teacher:"Samuelllllll",
+        discipline:"HTML e CSS"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(400);
   
+  });
+
+  it('Deve retornar 400 caso disciplina não exista', async () => {
+    const body =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      password_confirmation: '12345678910'
+    }
+
+    await supertest(app).post(`/signup`).send(body);
+
+    const login =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      
+    }
+
+    const logusser = await supertest(app).post(`/signin`).send(login);
+    const token = logusser.body.token
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: faker.lorem.words(4),
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"HTML e CSSssssssssss"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(400);
+  
+  });
+  
+  
+  it('Deve retornar 400 caso disciplina não seja lecionada pelo professor enviado não exista', async () => {
+    const body =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      password_confirmation: '12345678910'
+    }
+
+    await supertest(app).post(`/signup`).send(body);
+
+    const login =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      
+    }
+
+    const logusser = await supertest(app).post(`/signin`).send(login);
+    const token = logusser.body.token
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: faker.lorem.words(4),
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"Autoconfiança"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(400);
+  
+  });
 });
 
 afterAll(async () => {
