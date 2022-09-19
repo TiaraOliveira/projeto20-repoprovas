@@ -76,6 +76,20 @@ describe('Test signIn Routes',  () => {
     
   });
   
+  it('Deve retornar status 404 caso o usuario não exista no banco', async () => {
+    
+    const user = {
+      "email": "darthVader@gmail.com",
+      "password": "12345678910"
+  }
+   
+
+    const result = await supertest(app).post(`/signin`).send(user);
+
+    expect(result.status).toBe(404);
+  
+  });
+
 
  
 });
