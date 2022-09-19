@@ -30,7 +30,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao.pdf",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"HTML e CSS"
@@ -46,7 +46,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: "https://hub.driven.com.br/computacao",
+        pdfUrl: "https://hub.driven.com.br/computacao.pdf",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"HTML e CSS"
@@ -62,7 +62,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: "https://hub.driven.com.br/computacao",
+        pdfUrl: "https://hub.driven.com.br/computacao.pdf",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"HTML e CSS"
@@ -93,7 +93,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: "https://hub.driven.com.br/computacao",
+        pdfUrl: "https://hub.driven.com.br/computacao.pdf",
         category:"Projeto",
         teacher:"Samuelllllll",
         discipline:"HTML e CSS"
@@ -124,7 +124,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao.pdf",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"HTML e CSSssssssssss"
@@ -156,7 +156,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: "https://hub.driven.com.br/computacao",
+        pdfUrl: "https://hub.driven.com.br/computacao.pdf",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"Autoconfiança"
@@ -164,6 +164,98 @@ describe('Test addTest Routes',  () => {
     const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
     
     expect(result.status).toBe(400);
+  
+  });
+
+  it('Deve adicionar uma ṕrova e retornar status 201 e o objeto', async () => {
+    const body =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      password_confirmation: '12345678910'
+    }
+
+    await supertest(app).post(`/signup`).send(body);
+
+    const login =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      
+    }
+
+    const logusser = await supertest(app).post(`/signin`).send(login);
+    const token = logusser.body.token
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao.pdf",
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"HTML e CSS"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(201);
+  
+  });
+
+  it('Retornar status 422 caso pdfUrf não seja enviado em pdf', async () => {
+    const body =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      password_confirmation: '12345678910'
+    }
+
+    await supertest(app).post(`/signup`).send(body);
+
+    const login =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      
+    }
+
+    const logusser = await supertest(app).post(`/signin`).send(login);
+    const token = logusser.body.token
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao",
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"HTML e CSS"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(422);
+  
+  });
+  it('Retornar status 422 caso pdfUrf não seja enviado em https', async () => {
+    const body =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      password_confirmation: '12345678910'
+    }
+
+    await supertest(app).post(`/signup`).send(body);
+
+    const login =  {
+      email: "tiara@gmail.com",
+      password: '12345678910',
+      
+    }
+
+    const logusser = await supertest(app).post(`/signin`).send(login);
+    const token = logusser.body.token
+   
+      const test = {
+        name: faker.lorem.words(4),
+        pdfUrl: "hub.driven.com.br/computacao.pdf",
+        category:"Projeto",
+        teacher:"Diego Pinho",
+        discipline:"HTML e CSS"
+      }
+    const result = await supertest(app).post("/addtest").set({Authorization : `Bearer ${token}`}).send(test);
+    
+    expect(result.status).toBe(422);
   
   });
 });
