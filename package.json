@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/utils/server.ts",
+    "dev": "nodemon src/server.ts",
     "test": "jest --no-cache",
     "build": "tsc && npx prisma migrate deploy",
-    "start": "node dist/src/utils/server.ts"
+    "start": "node ./dist/src/server.js"
   },
   "keywords": [],
   "author": "",
