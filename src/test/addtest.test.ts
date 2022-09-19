@@ -46,7 +46,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"HTML e CSS"
@@ -62,7 +62,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"HTML e CSS"
@@ -93,7 +93,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao",
         category:"Projeto",
         teacher:"Samuelllllll",
         discipline:"HTML e CSS"
@@ -156,7 +156,7 @@ describe('Test addTest Routes',  () => {
    
       const test = {
         name: faker.lorem.words(4),
-        pdfUrl: faker.lorem.words(4),
+        pdfUrl: "https://hub.driven.com.br/computacao",
         category:"Projeto",
         teacher:"Diego Pinho",
         discipline:"Autoconfiança"

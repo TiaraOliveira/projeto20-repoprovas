@@ -7,7 +7,7 @@
     "dev": "nodemon src/utils/server.ts",
     "test": "jest --no-cache",
     "build": "tsc && npx prisma migrate deploy",
-    "start": "node dist/utils/server.ts"
+    "start": "node dist/src/utils/server.ts"
   },
   "keywords": [],
   "author": "",
